@@ -2,16 +2,14 @@ import React from 'react';
 import LoginBar from './LoginBar.js'
 
 const StartScreen = (props) => {
-  console.log(props.switchScreen);
+  console.log(props);
 
   const onStart = () => {
     console.log('To The Lobby');
-    window.location.pathname = '/lobby';
   }
 
   const onJoin = () => {
     console.log('To The LobbyList');
-    window.location.pathname = '/join';
   }
 
   const onLogin = () => {
@@ -19,17 +17,11 @@ const StartScreen = (props) => {
     window.location.pathname = '/login';
   }
 
-  /*
-  *     <LoginBar onClick={onLogin}/>
-  *     <button onClick={onStart}>Create Game</button>
-  *     <button onClick={onJoin}>Join Game</button>
-  */
-
+  // Removed <LoginBar onClick={onLogin}/>
 
   return(
     <div>
       <h1>StartScreen</h1>
-      <LoginBar onClick={onLogin}/>
       <button onClick={onStart}>Create Game</button>
       <button onClick={onJoin}>Join Game</button>
     </div>
