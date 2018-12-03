@@ -13,7 +13,8 @@ import Rules from './components/Rules.js'
 
 class App extends Component {
   state = {
-    currentScreen: 'StartScreen'
+    currentScreen: 'Rules',
+    numberOfPlayers: 9,
   }
 
   renderScreen = () => {
@@ -23,7 +24,7 @@ class App extends Component {
       case 'Game':
         return <Game />
       case 'Rules':
-        return <Rules />
+        return <Rules numberOfPlayers={this.state.numberOfPlayers} />
     }
   }
 
