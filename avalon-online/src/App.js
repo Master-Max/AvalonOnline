@@ -9,29 +9,29 @@ import LobbyList from './components/LobbyList.js'
 import VoteRules from './components/VoteRules.js'
 import Gamepage from './components/gamepage/Gamepage.js'
 import EndScreen from './components/EndScreen.js'
+import Rules from './components/Rules.js'
 
 class App extends Component {
   state = {
-    currentScreen: 'StartScreen',
+    currentScreen: 'Rules',
+    numberOfPlayers: 9,
   }
 
-  StartScreen = () => (<StartScreen switchScreen={this.switchScreen}/>)
-  LobbyList = () => (<LobbyList />)
-  Login = () => (<Login />)
-  Lobby = () => (<Lobby />)
+  renderScreen = () => {
+    switch(this.state.currentScreen) {
+      case 'StartScreen':
+        return <StartScreen />
+      case 'Gamepage':
+        return <Gamepage />
+      case 'Rules':
+        return <Rules numberOfPlayers={this.state.numberOfPlayers} />
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <Router>
-          <div>
-            <Route exact path="/" component={StartScreen} />
-            <Route path="/join" component={LobbyList} />
-            <Route path="/login" component={Login} />
-            <Route path="/lobby" component={Lobby} />
-          </div>
-        </Router>
-        <Gamepage/>
+        {this.renderScreen()}
       </div>
     );
   }
