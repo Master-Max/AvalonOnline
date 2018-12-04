@@ -7,7 +7,7 @@ import Login from './components/Login.js'
 import Lobby from './components/Lobby.js'
 import LobbyList from './components/LobbyList.js'
 import VoteRules from './components/VoteRules.js'
-import Game from './components/Game.js'
+import Gamepage from './components/gamepage/Gamepage.js'
 import EndScreen from './components/EndScreen.js'
 import Rules from './components/Rules.js'
 
