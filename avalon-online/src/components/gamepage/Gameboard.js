@@ -5,11 +5,11 @@ import VoteRounds from './VoteRounds'
 const Gameboard = (props) => {
 
   const renderMissionCards = () => {
-    return (<MissionCards numPlayers={props.numPlayers}/>)
+    return (<MissionCards numberOfPlayers={props.numberOfPlayers}/>)
   }
 
   const renderVoteRounds = () => {
-    return props.voteRounds.map(round => {
+    return props.missionVoteResults.map(round => {
 
       if (round === "pass") {
         return (<VoteRounds voteResult={round}/>)
