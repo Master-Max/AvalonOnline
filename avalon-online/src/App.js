@@ -19,6 +19,7 @@ class App extends Component {
     voteRound: true,
     votesArray: [],
     missionNumber: 0
+    playerNames: ["Ollie", "Max", "JT", "Jung", "Scotti"]
   }
 
   setVotesArray = (vote, id) => {
@@ -73,6 +74,8 @@ class App extends Component {
                 voteRound={this.state.voteRound}
                 setVotesArray={this.setVotesArray}
               />
+      case 'Game':
+        return <Game playerNames={this.state.playerNames} />
       case 'Rules':
         return <Rules numberOfPlayers={this.state.numberOfPlayers} />
     }
