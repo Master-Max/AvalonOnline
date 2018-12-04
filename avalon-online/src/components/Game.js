@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import PlayerContainer from './PlayerContainer';
 
 const Game = (props) => {
   return(
-    <h1>Game</h1>
+    <div>
+      <h1>Game</h1>
+      <PlayerContainer playerNames={props.playerNames} />
+    </div>
   )
 }
 

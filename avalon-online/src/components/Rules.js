@@ -2,8 +2,6 @@ import React from 'react';
 
 const Rules = (props) => {
 
-  console.log(props.numberOfPlayers)
-
   const setUpPlayers = () => {
     switch(props.numberOfPlayers) {
       case 5:
