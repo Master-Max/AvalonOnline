@@ -22,6 +22,27 @@
   color: #61dafb;
 }
 
+.rules-container {
+  border: 1px solid black;
+}
+
+.rules-paragraph {
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.table-styling {
+  border-collapse: collapse;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
 .player-container {
   display: flex;
   float: left;
