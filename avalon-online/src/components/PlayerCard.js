@@ -14,7 +14,6 @@ const PlayerCard = (props) => {
           </Card.Meta>
           <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
         </Card.Content>
-
       </Card>
       <button >Yay</button>
       <button >Nay</button>

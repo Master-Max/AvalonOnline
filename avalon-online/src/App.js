@@ -13,7 +13,7 @@ import Rules from './components/Rules.js'
 
 class App extends Component {
   state = {
-    currentScreen: 'Rules',
+    currentScreen: 'Game',
     numberOfPlayers: 9,
     playerNames: ["Ollie", "Max", "JT", "Jung", "Scotti"]
   }
