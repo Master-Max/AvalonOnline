@@ -14,7 +14,7 @@ import Rules from './components/Rules.js'
 class App extends Component {
   state = {
     currentScreen: 'Gamepage',
-    numberOfPlayers: 9,
+    numberOfPlayers: 5,
     missionVoteResults: [null, null, null, null, null],
     voteRound: true,
     votesArray: [],
@@ -23,18 +23,42 @@ class App extends Component {
 
   setVotesArray = (vote, id) => {
     let arr = [...this.state.votesArray]
-    if (this.state.votesArray.includes()) {
-      let index = id - 1
-      arr[index] = vote
-      this.setState({votesArray: arr})
-    } else {
-      let count = 0
-      for (var i = 0; i < arr.length; i++) {
-        if (arr[i] === "yes") {
-          count++
-        }
+    let index = id - 1
+    arr[index] = vote
+    this.setState({votesArray: arr})
+    setTimeout(() => {
+      if (this.areVotesSubmitted()) {
+        this.didVotesPass()
       }
-      
+    }, 1000)
+  }
+
+  didVotesPass = () => {
+    let votesToPass = Math.floor(this.state.numberOfPlayers/2) + 1
+    let count = 0
+    for (var i = 0; i < this.state.votesArray.length; i++) {
+      if (this.state.votesArray[i] === "yes") {
+        count++
+      }
+    }
+    let mArr = [...this.state.missionVoteResults]
+    let index = this.state.missionNumber
+    if (count >= votesToPass) {
+      mArr.splice(index, 1, "pass")
+    } else {
+      mArr.splice(index, 1, "fail")
+    }
+    this.setState({missionVoteResults: mArr})
+    let missNum = this.state.missionNumber
+    this.setState({missionNumber: missNum+1})
+    this.setState({votesArray: []})
+  }
+
+  areVotesSubmitted = () => {
+    if (!this.state.votesArray.includes() && this.state.votesArray.length === this.state.numberOfPlayers) {
+      return true
+    } else {
+      return false
     }
   }
 
