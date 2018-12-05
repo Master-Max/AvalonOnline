@@ -127,7 +127,13 @@ class App extends Component {
           channel: "RoomsChannel",
           room_id: this.state.currentRoomId
         },
-        { received: data => console.log("The data is:", data) }
+        { received: data => {
+            console.log("The data is:", data);
+            if(data.title === "Updated Players"){
+              this.setState({currentPlayers: data.players})
+            }
+          }
+        }
       );
       this.setState({ roomSubscription }, () => {
         console.log("I saved a reference to the subscription");
@@ -185,6 +191,7 @@ class App extends Component {
                 getPlayersInRoom={this.getPlayersInRoom}
                 players={this.state.currentPlayers}
                 numberOfPlayers={this.state.numberOfPlayers}
+                roomId={this.state.currentRoomId}
                 />
       case 'Gamepage':
         return <Gamepage
