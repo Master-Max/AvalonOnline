@@ -3,6 +3,8 @@ import Rules from './Rules.js'
 import Gamepage from './gamepage/Gamepage.js'
 import Game from './Game.js'
 
+const API = 'http://localhost:4000'
+
 class StartScreen extends React.Component{
 
   constructor(props){
@@ -37,10 +39,27 @@ class StartScreen extends React.Component{
     this.setState({showRules: opp})
   }
 
+  createGame = () => {
+
+  }
+
   startGame = () => {
+    // OLD
     console.log('Start Game')
-    // THIS NEEDS TO DO A FETCH EVENTUALLY
-    this.setState({startGame: true})
+    //
+
+    fetch(API + '/games', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        player_number: this.props.numberOfPlayers,
+        room_id: this.props.roomId
+      })
+    })
+    .then(r=>r.json())
+    .then(game=>this.setState({game: game, startGame: true}))
   }
 
   lobby() {
