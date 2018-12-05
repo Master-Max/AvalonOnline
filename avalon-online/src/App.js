@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
+import axios from 'axios';
 
 import StartScreen from './components/StartScreen.js'
 import Login from './components/Login.js'
@@ -87,7 +88,9 @@ class App extends Component {
 
   // Max's StartScreen Methods
   setPlayer = (player) => {
-    this.setState({player})
+    this.setState({player}, () => {
+      this.signIn(player.name)
+    })
   }
 
   createPlayer = (newName) => {
@@ -102,7 +105,10 @@ class App extends Component {
       })
     })
     .then(r=>r.json())
-    .then(player=>this.setState({player}, () => this.getPlayersInRoom()))
+    .then(player=>this.setState({player}, () => {
+      this.getPlayersInRoom()
+      this.reSub()
+    }))
   }
 
   getPlayersInRoom = () => {
@@ -116,6 +122,48 @@ class App extends Component {
     )
   }
   // END
+
+  unSub = () => {
+    this.cable.subscriptions.remove(this.state.roomSubscription);
+    this.setState(
+      { currentRoomId: null, roomSubscription: null },
+      () => {
+        console.log("I cleared the subscription");
+      }
+    );
+  }
+
+  reSub = () => {
+    this.signIn(this.state.player.name)
+
+    const yourToken = localStorage.token;
+
+    this.cable = ActionCable.createConsumer("ws://localhost:4000/cable", yourToken);
+    const roomSubscription = this.cable.subscriptions.create(
+      {
+        channel: "RoomsChannel",
+        room_id: this.state.currentRoomId
+      },
+      { received: data => console.log("The data is:", data) }
+    );
+    this.setState({ roomSubscription }, () => {
+      console.log("I saved a reference to the subscription");
+    });
+  }
+
+
+  // Sign In User?
+  signIn = (name) => {
+    axios.post(API + '/login', {name}, { withCredentials: true })
+    .then(response => {
+      if (response.data.result_status == "success") {
+        localStorage.setItem("token", JSON.stringify(response.data.user))
+      }
+    })
+  }
+
+  // END
+
 
   // This Stuff Renders Different Rooms
 
